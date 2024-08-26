@@ -4,6 +4,13 @@
 
 ttytok is an application that integrates with TikTok using reversed engineered [rust crate](https://github.com/ZmoleCristian/TikTokLiveRust) . It allows you to monitor live streams, chat events, and user actions in real-time using various tools and utilities.
 
+# GIB ME MONEH 🪙:
+
+## BTC `bc1q0dvmajcammgpesu2flamrdj6rs75cuhum5jyj6`
+## ETH `0x3BD77790fc6409441142eb622008d2CdA88aF40c`
+## SOL `3BHNm9d9gRaEMhn8yyxN17FD3cNgz55VESj1h6VH467a`
+
+
 ## Screenshot
 
 ![image](screenshot.png)
