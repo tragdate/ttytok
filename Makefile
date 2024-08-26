@@ -12,6 +12,8 @@ all: $(TARGET_DIR)/$(TOOL)
 
 $(TARGET_DIR)/$(TOOL):
 	cargo build --release --manifest-path=connector_bin/Cargo.toml
+	mkdir -p $(INSTALL_LIB_DIR)
+	mkdir -p $(INSTALL_SHARE_DIR)
 	for extra in $(EXTRAS); do \
 		install -Dm644 $$extra $(INSTALL_SHARE_DIR)/$$extra; \
 	done
@@ -20,8 +22,6 @@ install: $(TARGET_DIR)/$(TOOL)
 	./install_req.sh
 	install -Dm755 $(MAIN_SCRIPT) $(INSTALL_BIN_DIR)/ttytok
 	install -Dm755 $(TARGET_DIR)/$(TOOL) $(INSTALL_LIB_DIR)/$(TOOL)
-	mkdir -p $(INSTALL_LIB_DIR)
-	mkdir -p $(INSTALL_SHARE_DIR)
 	for script in $(SCRIPTS); do \
 		install -Dm755 $$script $(INSTALL_LIB_DIR)/$$script; \
 	done

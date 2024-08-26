@@ -14,6 +14,7 @@ fi
 touch /tmp/joins
 touch /tmp/gifts
 touch /tmp/chats
+touch /tmp/mpv_ipc
 
 truncate -s 0  /tmp/chats
 truncate -s 0  /tmp/gifts
