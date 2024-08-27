@@ -8,7 +8,7 @@ fi
 if [ -f /usr/bin/apt-get ]; then
   PM="apt-get"
   PM_INSTALL="install"
-  PM_PACKAGES="fzf inotify-tools mpv tmux"
+  PM_PACKAGES="fzf inotify-tools mpv tmux pkg-config libssl-dev"
   PM_YES="-y"
 elif [ -f /usr/bin/yum ]; then
   PM="yum"
