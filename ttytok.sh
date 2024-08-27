@@ -24,7 +24,7 @@ SESSION_NAME="tt-cli"
 SESSION_EXISTS=$(tmux list-sessions | grep $SESSION_NAME)
 if [ "$SESSION_EXISTS" = "" ]; then
     tmux new-session -d -s $SESSION_NAME '/usr/local/lib/ttytok/watchers.sh mpv_ipc'
-    tmux splitw -h -l 66% '/usr/local/lib/tt-cli/watchers.sh joins'
+    tmux splitw -h -l 66% '/usr/local/lib/ttytok/watchers.sh joins'
     tmux splitw -v -l 80% -t 1 '/usr/local/lib/ttytok/watchers.sh gifts'
     tmux splitw -v -l 80% -t 2 '/usr/local/lib/ttytok/watchers.sh chats'
     tmux splitw -v -l 10% -t 3 '/usr/local/lib/ttytok/userselect.sh'

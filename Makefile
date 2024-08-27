@@ -31,7 +31,7 @@ clean:
 
 
 uninstall:
-	rm -f $(INSTALL_BIN_DIR)/tt-cli
+	rm -f $(INSTALL_BIN_DIR)/ttytok
 	rm -f $(INSTALL_LIB_DIR)/$(TOOL)
 	for script in $(SCRIPTS); do \
 		rm -f $(INSTALL_LIB_DIR)/$$script; \
