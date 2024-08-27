@@ -6,7 +6,7 @@ INSTALL_BIN_DIR=$(DESTDIR)/usr/local/bin
 INSTALL_LIB_DIR=$(DESTDIR)/usr/local/lib/ttytok
 INSTALL_SHARE_DIR=$(HOME)/.local/share/ttytok
 SCRIPTS=userselect.sh watchers.sh
-EXTRAS=users
+EXTRAS=users cookies
 
 all: $(TARGET_DIR)/$(TOOL)
 

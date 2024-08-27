@@ -8,6 +8,12 @@ if [ "$command" == "add" ]; then
 elif [ "$command" == "remove" ]; then
     sed -i "/$2/d" "$HOME/.local/share/ttytok/users"
     exit
+elif [ "$command" == "list" ]; then
+    cat "$HOME/.local/share/ttytok/users"
+    exit
+elif [ "$command" == "addcookies" ]; then
+    echo $2 > "$HOME/.local/share/ttytok/cookies"
+    exit
 fi
 
 

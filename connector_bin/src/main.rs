@@ -1,8 +1,8 @@
 use env_logger::{Builder, Env};
 use log::LevelFilter;
 use log::{error, warn};
-use std::fs::{File, OpenOptions};
-use std::io::Write;
+use std::fs::{read_to_string, File, OpenOptions};
+use std::io::{Read, Write};
 use std::time::Duration;
 use tiktoklive::{
     core::live_client::TikTokLiveClient,
@@ -108,9 +108,17 @@ fn configure(settings: &mut TikTokLiveSettings) {
 
 fn configure_with_cookies(settings: &mut TikTokLiveSettings) {
     settings.http_data.time_out = Duration::from_secs(12); // Set HTTP timeout to 12 seconds
-    let contents = ""; // Placeholder for cookies
+    let username = std::env::var("USER").unwrap();
+    println!("Username: {}", username);
+    let mut file = File::open(format!("/home/{}/.local/share/ttytok/cookies", username)).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    //trim newline at the end
+    if contents.ends_with('\n') {
+        contents.pop();
+    }
+    println!("Cookies: {}", contents);
     settings.http_data.headers.insert("Cookie".to_string(), contents.to_string());
-    // Insert cookies into HTTP headers
 }
 
 fn create_client(user_name: &str) -> TikTokLiveClient {

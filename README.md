@@ -76,14 +76,26 @@ This will start a `tmux` session with multiple panes, displaying different aspec
 - **Add User:**
 
     ```bash
-    ttytok.sh add "USERNAME"
+    ttytok add "USERNAME"
     ```
 
 - **Remove User:**
 
     ```bash
-    ttytok.sh remove "USERNAME"
+    ttytok remove "USERNAME"
     ```
+- **List Users:**
+
+    ```bash
+    ttytok list
+    ```
+
+- **Add Cookie:**
+
+    ```bash
+    ttytok addcookie "COOKIE_STRING"
+    ```
+
 
 ### Build and Cleaning
 
