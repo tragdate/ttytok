@@ -2,7 +2,7 @@
 
 ## Description
 
-ttytok is an application that integrates with TikTok using reversed engineered [rust crate](https://github.com/ZmoleCristian/TikTokLiveRust) . It allows you to monitor live streams, chat events, and user actions in real-time using various tools and utilities.
+ttytok is an application that integrates with TikTok using reversed engineered my [rust crate](https://github.com/ZmoleCristian/TikTokLiveRust) . It allows you to monitor live streams, chat events, and user actions in real-time using various tools and utilities.
 
 # GIB ME MONEH 🪙:
 
