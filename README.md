@@ -1,130 +1,65 @@
 # ttytok
 
-## Description
+TikTok Live in your terminal. Pure shell, no signing server, no compiled binaries.
 
-ttytok is an application that integrates with TikTok using reversed engineered my [rust crate](https://github.com/ZmoleCristian/TikTokLiveRust) . It allows you to monitor live streams, chat events, and user actions in real-time using various tools and utilities.
-
-
-
-## Screenshot
+tmux multi-pane layout with chat, gifts, joins, video stream, and fzf user picker with live user discovery.
 
 ![image](screenshot.png)
 
-## Features
+## Install
 
-- Handle and log various TikTok live events including chats, user joins, and gifts.
-- Use `tmux` for an organized multi-pane display.
-- Simple scripts for adding and removing TikTok users to monitor.
-- Fuzzy finder UI to select TikTok user accounts for live stream monitoring.
-- Real-time updates displayed in terminal panes.
+```bash
+sudo make install
+```
 
-## Requirements
-
-- Unix-like operating system (Linux, macOS)
-- Root privileges for installation.
-- Basic utilities like `bash`, `tmux`, `fzf`, `inotify-tools`, `mpv`.
-
-## Installation
-
-1. Start by installing necessary packages. Run the `install_req.sh` script which will install the required packages based on your package manager:
-
-    ```bash
-    
-    ./install_req.sh
-    ```
-
-2. Build the Rust connector binary:
-
-    2.1. Make sure you have cargo and rust installed:
-    ```bash
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    ```
-
-    2.2. Build the binary:
-
-    ```bash
-    
-    make
-    ```
-
-3. Install the built binary and related scripts:
-
-    ```bash
-    
-    sudo make install
-    ```
+Dependencies: `bash`, `tmux`, `fzf`, `openssl`, `gzip`, `grep -P` (PCRE). Optional: `mpv` (stream video in terminal).
 
 ## Usage
 
-### Running ttytok
-
-To start using ttytok, simply run the installed executable:
-
 ```bash
-ttytok
+ttytok                    # open TUI
+ttytok add zooich         # add user to watch list
+ttytok remove zooich      # remove user
+ttytok list               # list saved users
+ttytok discover           # check which saved users are live
+ttytok check zooich       # check if a specific user is live
 ```
 
-This will start a `tmux` session with multiple panes, displaying different aspects of the monitored TikTok live stream and events.
+### TUI keybindings
 
-### Managing Users
+| Key | Action |
+|-----|--------|
+| `Enter` | Connect to selected user |
+| `Ctrl-D` | Refresh online status (discover) |
+| `Ctrl-A` | Add a new user |
+| `Ctrl-X` | Remove selected user |
 
-- **Add User:**
+### Layout
 
-    ```bash
-    ttytok add "USERNAME"
-    ```
+```
++--------+---------------------+
+|        | joins/follows       |
+| stream +---------------------+
+| (mpv)  | gifts               |
+|        +---------------------+
+|        | chat                |
+|        +---------------------+
+|        | fzf user picker     |
++--------+---------------------+
+```
 
-- **Remove User:**
+## How it works
 
-    ```bash
-    ttytok remove "USERNAME"
-    ```
-- **List Users:**
+Connects directly to TikTok Live WebSocket. No API keys, no signing server, no compiled dependencies. Decodes the protobuf event stream in pure bash and pipes events to tmux panes.
 
-    ```bash
-    ttytok list
-    ```
+Powered by [PirateTok](https://github.com/PirateTok).
 
-- **Add Cookie:**
-
-    ```bash
-    ttytok addcookie "COOKIE_STRING"
-    ```
-
-
-### Build and Cleaning
-
-- **Build:**
-
-    ```bash
-    make
-    ```
-
-- **Clean Build Files:**
-
-    ```bash
-    make clean
-    ```
-
-### Uninstalling
-
-To completely remove ttytok and all its components:
+## Uninstall
 
 ```bash
 sudo make uninstall
 ```
 
-## Author
-
-Developed by [TragDate](https://github.com/tragdate) 
-
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
-
-# GIB ME MONEH 🪙:
-
-## BTC `bc1q0dvmajcammgpesu2flamrdj6rs75cuhum5jyj6`
-## ETH `0x3BD77790fc6409441142eb622008d2CdA88aF40c`
-## SOL `3BHNm9d9gRaEMhn8yyxN17FD3cNgz55VESj1h6VH467a`
+0BSD

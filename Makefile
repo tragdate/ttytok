@@ -1,42 +1,31 @@
-MAIN_SCRIPT=ttytok.sh
-TOOL=connector
-SRC=connector_bin/src/main.rs
-TARGET_DIR=connector_bin/target/release
-INSTALL_BIN_DIR=$(DESTDIR)/usr/local/bin
-INSTALL_LIB_DIR=$(DESTDIR)/usr/local/lib/ttytok
-INSTALL_SHARE_DIR=$(HOME)/.local/share/ttytok
-SCRIPTS=userselect.sh watchers.sh
-EXTRAS=users cookies
+PREFIX = $(HOME)/.local
+INSTALL_BIN_DIR = $(DESTDIR)$(PREFIX)/bin
+INSTALL_LIB_DIR = $(DESTDIR)$(PREFIX)/lib/ttytok
+INSTALL_PT_DIR = $(DESTDIR)$(PREFIX)/lib/piratetok
+INSTALL_SHARE_DIR = $(HOME)/.local/share/ttytok
 
-all: $(TARGET_DIR)/$(TOOL)
+SCRIPTS = ttytok.sh connector.sh discover.sh userselect.sh watchers.sh
 
-$(TARGET_DIR)/$(TOOL):
-	cargo build --release --manifest-path=connector_bin/Cargo.toml
-	mkdir -p $(INSTALL_SHARE_DIR)
-	for extra in $(EXTRAS); do \
-		install -Dm644 $$extra $(INSTALL_SHARE_DIR)/$$extra; \
-	done
+.PHONY: install uninstall deps
 
-install: $(TARGET_DIR)/$(TOOL)
-	./install_req.sh
-	mkdir -p $(INSTALL_LIB_DIR)
-	install -Dm755 $(MAIN_SCRIPT) $(INSTALL_BIN_DIR)/ttytok
-	install -Dm755 $(TARGET_DIR)/$(TOOL) $(INSTALL_LIB_DIR)/$(TOOL)
+deps:
+	@if command -v bpkg >/dev/null 2>&1; then \
+		bpkg install PirateTok/live-sh; \
+	else \
+		echo "fetching piratetok.sh from github..."; \
+		mkdir -p $(INSTALL_PT_DIR); \
+		curl -fsSL https://raw.githubusercontent.com/PirateTok/live-sh/main/lib/piratetok.sh \
+			-o $(INSTALL_PT_DIR)/piratetok.sh; \
+	fi
+
+install: deps
+	mkdir -p $(INSTALL_BIN_DIR) $(INSTALL_LIB_DIR) $(INSTALL_SHARE_DIR)
+	install -Dm755 ttytok.sh $(INSTALL_BIN_DIR)/ttytok
 	for script in $(SCRIPTS); do \
 		install -Dm755 $$script $(INSTALL_LIB_DIR)/$$script; \
 	done
-
-clean:
-	cargo clean --manifest-path=connector_bin/Cargo.toml
-
+	@test -f $(INSTALL_SHARE_DIR)/users || touch $(INSTALL_SHARE_DIR)/users
 
 uninstall:
 	rm -f $(INSTALL_BIN_DIR)/ttytok
-	rm -f $(INSTALL_LIB_DIR)/$(TOOL)
-	for script in $(SCRIPTS); do \
-		rm -f $(INSTALL_LIB_DIR)/$$script; \
-	done
-	for extra in $(EXTRAS); do \
-		rm -f $(INSTALL_LIB_DIR)/$$extra; \
-	done
 	rm -rf $(INSTALL_LIB_DIR)
