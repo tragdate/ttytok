@@ -9,10 +9,12 @@ tmux multi-pane layout with chat, gifts, joins, video stream, and fzf user picke
 ## Install
 
 ```bash
-sudo make install
+make install
 ```
 
-Dependencies: `bash`, `tmux`, `fzf`, `openssl`, `gzip`, `grep -P` (PCRE). Optional: `mpv` (stream video in terminal).
+This fetches [piratetok-live-sh](https://github.com/PirateTok/live-sh) (via bpkg or curl) and installs ttytok to `~/.local`.
+
+Dependencies: `bash`, `tmux`, `fzf`, `openssl`, `gzip`. Optional: `mpv` (stream video in terminal).
 
 ## Usage
 
@@ -21,7 +23,7 @@ ttytok                    # open TUI
 ttytok add zooich         # add user to watch list
 ttytok remove zooich      # remove user
 ttytok list               # list saved users
-ttytok discover           # check which saved users are live
+ttytok discover           # browse live users from TikTok feed
 ttytok check zooich       # check if a specific user is live
 ```
 
@@ -30,7 +32,8 @@ ttytok check zooich       # check if a specific user is live
 | Key | Action |
 |-----|--------|
 | `Enter` | Connect to selected user |
-| `Ctrl-D` | Refresh online status (discover) |
+| `Ctrl-D` | Discover live users (feed browse) |
+| `Ctrl-R` | Refresh saved users' online status |
 | `Ctrl-A` | Add a new user |
 | `Ctrl-X` | Remove selected user |
 
@@ -50,14 +53,14 @@ ttytok check zooich       # check if a specific user is live
 
 ## How it works
 
-Connects directly to TikTok Live WebSocket. No API keys, no signing server, no compiled dependencies. Decodes the protobuf event stream in pure bash and pipes events to tmux panes.
+Connects directly to TikTok Live WebSocket via [piratetok-live-sh](https://github.com/PirateTok/live-sh). No API keys, no signing server, no compiled dependencies. Decodes the protobuf event stream and pipes events to tmux panes.
 
-Powered by [PirateTok](https://github.com/PirateTok).
+Powered by [PirateTok](https://piratetok.boats).
 
 ## Uninstall
 
 ```bash
-sudo make uninstall
+make uninstall
 ```
 
 ## License
